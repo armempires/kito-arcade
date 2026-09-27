@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="bga" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#312e81"/></linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bga)"/>
+  <!-- Calendar Pad -->
+  <rect x="120" y="50" width="160" height="150" rx="16" fill="#ffffff" stroke="#6366f1" stroke-width="4"/>
+  <rect x="120" y="50" width="160" height="40" rx="16" fill="#4f46e5"/>
+  <circle cx="150" cy="45" r="6" fill="#e0e7ff"/>
+  <circle cx="200" cy="45" r="6" fill="#e0e7ff"/>
+  <circle cx="250" cy="45" r="6" fill="#e0e7ff"/>
+  <!-- Checkmark -->
+  <path d="M165 140 L185 160 L235 110" stroke="#10b981" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="200" y="250" font-family="sans-serif" font-weight="900" font-size="24" fill="#c7d2fe" text-anchor="middle" letter-spacing="2">AGENDA PRO</text>
+</svg>

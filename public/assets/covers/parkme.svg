@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#334155"/>
+  <rect x="90" y="50" width="220" height="140" rx="12" fill="#1e293b" stroke="#e2e8f0" stroke-width="3" stroke-dasharray="10 6"/>
+  <rect x="120" y="80" width="65" height="35" rx="6" fill="#ef4444"/>
+  <rect x="215" y="80" width="65" height="35" rx="6" fill="#3b82f6"/>
+  <rect x="170" y="130" width="65" height="35" rx="6" fill="#eab308"/>
+  <text x="200" y="245" font-family="sans-serif" font-weight="900" font-size="26" fill="#fde047" text-anchor="middle" letter-spacing="2">PARK ME 3D</text>
+</svg>

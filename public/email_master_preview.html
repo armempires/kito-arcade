@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Preview Oficial dos Novos Templates de E-mail // Kito Arcade</title>
+  <style>
+    body {
+      background-color: #050608;
+      color: #e5e7eb;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 30px 20px;
+    }
+    .preview-header-bar {
+      max-width: 1400px;
+      margin: 0 auto 30px;
+      padding: 20px 28px;
+      background: #0d0f15;
+      border: 1px solid #1f2536;
+      border-radius: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .preview-brand {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+    .preview-brand span { color: #00FF66; }
+    .preview-tag {
+      background: rgba(0, 255, 102, 0.1);
+      border: 1px solid rgba(0, 255, 102, 0.3);
+      color: #00FF66;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .grid-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: 30px;
+      align-items: start;
+    }
+    .preview-column {
+      background: #0a0b10;
+      border: 1px solid #161a26;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    .column-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #d1d5db;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .column-title span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #00FF66;
+      box-shadow: 0 0 10px #00FF66;
+    }
+    iframe {
+      width: 100%;
+      height: 980px;
+      border: none;
+      border-radius: 12px;
+      background: #07080a;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-header-bar">
+    <div>
+      <div class="preview-brand">KITO<span>ARCADE</span> // NOVOS TEMPLATES DE E-MAIL OFICIAIS</div>
+      <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">Substituição do formato genérico padrão por identidade visual de alta tecnologia Kito Expert</div>
+    </div>
+    <div class="preview-tag">ESTÉTICA ULTRA-MODERNA // ALTA CONVERSÃO</div>
+  </div>
+
+  <div class="grid-container">
+    <!-- Coluna 1: Confirmação de Agendamento -->
+    <div class="preview-column">
+      <div class="column-title">
+        <span class="dot"></span>
+        TEMPLATE 1: CONFIRMAÇÃO DE AGENDAMENTO (COM GOOGLE CALENDAR &amp; WHATSAPP)
+      </div>
+      <iframe src="/email_booking_preview.html"></iframe>
+    </div>
+
+    <!-- Coluna 2: Código OTP de Verificação -->
+    <div class="preview-column">
+      <div class="column-title">
+        <span class="dot" style="background: #06B6D4; box-shadow: 0 0 10px #06B6D4;"></span>
+        TEMPLATE 2: CÓDIGO DE AUTENTICAÇÃO OTP (6 DÍGITOS TERMINAL GLOW)
+      </div>
+      <iframe src="/email_otp_preview.html"></iframe>
+    </div>
+  </div>
+</body>
+</html>

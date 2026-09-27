@@ -1,0 +1,17 @@
+{
+  "name": "send-verification-code",
+  "version": "1.0.0",
+  "description": "Send email verification code via Resend",
+  "main": "index.ts",
+  "scripts": {
+    "build": "esbuild ./index.ts --bundle --platform=node --outdir=./ --external:@supabase/functions-helper --external:@supabase/supabase-js --external:resend"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "resend": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.20.0"
+  }
+}

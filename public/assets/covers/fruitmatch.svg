@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#84cc16"/>
+  <circle cx="140" cy="115" r="40" fill="#ef4444"/>
+  <circle cx="200" cy="115" r="40" fill="#f97316"/>
+  <circle cx="260" cy="115" r="40" fill="#eab308"/>
+  <text x="200" y="240" font-family="sans-serif" font-weight="900" font-size="26" fill="#ffffff" text-anchor="middle" letter-spacing="2">FRUIT MATCH</text>
+</svg>

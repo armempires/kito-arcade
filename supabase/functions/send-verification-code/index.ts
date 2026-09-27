@@ -1,0 +1,155 @@
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { Resend } from "https://esm.sh/resend@4";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
+
+function renderLogoHeader(): string {
+  return `
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: 0 auto; text-align: center;">
+      <tr>
+        <td align="center" style="padding-bottom: 6px;">
+          <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="display: inline-table; vertical-align: middle;">
+            <tr>
+              <td style="vertical-align: middle;">
+                <span style="font-family: 'Anton', Impact, 'Arial Black', -apple-system, sans-serif; font-size: 24px; font-weight: 900; letter-spacing: 0.05em; color: #FFFFFF; text-transform: uppercase; line-height: 1;">
+                  KITO<span style="color: #C8FF00;">ARCADE</span>
+                </span>
+              </td>
+              <td style="vertical-align: middle; padding-left: 8px;">
+                <span style="display: inline-block; padding: 3px 8px; background-color: #C8FF00; border-radius: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 9px; font-weight: 900; color: #000000; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.2;">
+                  ECOSSISTEMA
+                </span>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 10px; font-weight: 600; color: #A0A0A0; letter-spacing: 0.12em; text-transform: uppercase;">
+            SITE, APP, MARKETING E AUTOMAÇÃO
+          </span>
+        </td>
+      </tr>
+    </table>
+  `;
+}
+
+serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
+  }
+
+  try {
+    const { email, code, customHtml } = await req.json();
+
+    if (!email || !code) {
+      return new Response(JSON.stringify({ success: false, error: "Email e código são obrigatórios" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const resend = new Resend(Deno.env.get("RESEND_API_KEY") ?? "");
+    const digits = String(code).trim().split("");
+
+    const digitsHtml = `
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: 0 auto; white-space: nowrap; border-collapse: separate;">
+        <tr>
+          ${digits.map(d => `
+            <td align="center" style="padding: 0 4px;">
+              <div style="width: 40px; height: 50px; line-height: 50px; background-color: #0b0c10; border: 1.5px solid #C8FF00; border-radius: 10px; font-family: 'SF Mono', Consolas, Monaco, monospace; font-size: 24px; font-weight: 900; color: #C8FF00; text-align: center; box-shadow: 0 0 14px rgba(200, 255, 0, 0.22); white-space: nowrap;">
+                ${d}
+              </div>
+            </td>
+          `).join("")}
+        </tr>
+      </table>
+    `;
+
+    const htmlContent = customHtml || `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Código de Verificação // Kito Arcade</title>
+  <style>
+    body { margin: 0; padding: 0; background-color: #07080a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; color: #f3f4f6; }
+    table { border-collapse: collapse; }
+    @media only screen and (max-width: 480px) {
+      .container-table { width: 100% !important; border-radius: 0 !important; }
+      .content-padding { padding: 24px 16px !important; }
+      .header-padding { padding: 24px 16px 16px !important; }
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #07080a;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #07080a; padding: 32px 10px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" class="container-table" width="100%" style="max-width: 500px; background-color: #0d0f15; border: 1px solid #1a1e2b; border-radius: 18px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);">
+          <tr>
+            <td style="background: linear-gradient(90deg, #C8FF00 0%, #84CC16 50%, #06B6D4 100%); height: 3px; line-height: 3px; font-size: 3px;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="header-padding" style="padding: 30px 32px 20px; text-align: center; border-bottom: 1px solid #161a26; background: radial-gradient(ellipse at top, rgba(200, 255, 0, 0.05) 0%, rgba(13, 15, 21, 0) 70%);">
+              ${renderLogoHeader()}
+            </td>
+          </tr>
+          <tr>
+            <td class="content-padding" style="padding: 32px 32px 24px; text-align: center;">
+              <div style="display: inline-block; padding: 5px 14px; background: rgba(200, 255, 0, 0.08); border: 1px solid rgba(200, 255, 0, 0.25); border-radius: 9999px; font-size: 11px; font-weight: 800; color: #C8FF00; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px;">
+                🔐 VALIDAÇÃO EM 2 ETAPAS
+              </div>
+              <h1 style="margin: 0 0 10px; font-size: 20px; font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">
+                Seu Código de Confirmação
+              </h1>
+              <p style="margin: 0 0 24px; font-size: 13px; line-height: 1.5; color: #9ca3af; max-width: 380px; margin-left: auto; margin-right: auto;">
+                Insira os 6 dígitos abaixo na tela do agendamento para validar sua identidade com segurança:
+              </p>
+              <div style="background-color: #08090e; border: 1.5px dashed rgba(200, 255, 0, 0.5); border-radius: 14px; padding: 20px 16px; margin: 0 auto 20px; max-width: 340px; box-shadow: 0 0 20px rgba(200, 255, 0, 0.1);">
+                ${digitsHtml}
+              </div>
+              <div style="display: inline-block; padding: 5px 14px; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 8px; font-size: 12px; color: #f59e0b; margin-bottom: 22px;">
+                ⏱️ Este código expira em <strong>15 minutos</strong>.
+              </div>
+              <div style="background-color: #121520; border: 1px solid #1a2030; border-radius: 10px; padding: 12px 16px; font-size: 11px; line-height: 1.5; color: #6b7280; text-align: center;">
+                Por motivos de segurança, nunca compartilhe este código. Se você não solicitou este agendamento, desconsidere este e-mail.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 18px 32px; background-color: #0a0b10; border-top: 1px solid #161a26; text-align: center;">
+              <p style="margin: 0; font-size: 11px; color: #6b7280; line-height: 1.5;">
+                Mensagem gerada pelo sistema de segurança Kito Arcade.<br>
+                © 2026 Kito Expert • Infraestrutura Protegida
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+
+    const result = await resend.emails.send({
+      from: "Kito Arcade // Segurança <atendimento@mailer.kitoexpert.online>",
+      to: email,
+      subject: `🔐 Código de Acesso Kito Arcade: ${code}`,
+      html: htmlContent,
+    });
+
+    return new Response(JSON.stringify({ success: true, data: result }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  } catch (error: any) {
+    return new Response(JSON.stringify({ success: false, error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+});

@@ -1,0 +1,16 @@
+project_id = "syxdhtlxafgbxflkrddp"
+
+[functions.client-payments]
+verify_jwt = false
+
+[functions.asaas-client-webhook]
+verify_jwt = false
+
+[functions.client-auth]
+verify_jwt = false
+
+[functions.send-verification-code]
+verify_jwt = false
+
+[functions.password-reset]
+verify_jwt = false

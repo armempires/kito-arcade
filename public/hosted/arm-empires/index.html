@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>Arm Empires | 3D Tactical FPS Showroom & Multiplayer</title>
+  <meta name="title" content="Arm Empires | 3D Tactical FPS Showroom & Multiplayer" />
+  <meta name="description" content="Arm Empires: Experiência tática FPS 3D com gráficos de última geração, customização de armamentos, física balística realista e showroom de armas." />
+  <meta name="keywords" content="arm empires, fps 3d, tactical shooter, unity webgl, kito arcade, jogo de tiro 3d, armas táticas" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://kitoarcade.com.br/hosted/arm-empires/index.html" />
+  <meta name="theme-color" content="#060709" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="game" />
+  <meta property="og:url" content="https://kitoarcade.com.br/hosted/arm-empires/index.html" />
+  <meta property="og:title" content="Arm Empires | 3D Tactical FPS Showroom & Multiplayer" />
+  <meta property="og:description" content="Simulação tática e showroom de armamentos 3D com física realista desenvolvido pela Kito Expert." />
+  <meta property="og:image" content="https://kitoarcade.com.br/assets/covers/card_game_armempires.png" />
+
+  <!-- Twitter / X Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Arm Empires — Tactical FPS Showroom" />
+  <meta name="twitter:description" content="Experiência 3D tática com customização avançada de armas e física de impacto." />
+  <meta name="twitter:image" content="https://kitoarcade.com.br/assets/covers/card_game_armempires.png" />
+
+  <!-- Schema.org Structured Data (VideoGame / GEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Arm Empires",
+    "description": "Showroom e simulação 3D de tiro tático com modelos realistas de armamentos e balística de precisão.",
+    "genre": ["Action", "Tactical Shooter", "Simulation"],
+    "gamePlatform": ["PC", "Web Browser"],
+    "applicationCategory": "Game",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kito Expert",
+      "url": "https://kitoarcade.com.br"
+    }
+  }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700;800&family=Montserrat:wght@400;600;700;900&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #060709;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      min-height: 100vh;
+      overflow-x: hidden;
+      user-select: none;
+    }
+    
+    .tactical-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(200, 255, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200, 255, 0, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .scanline {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.7;
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(200, 255, 0, 0.2);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-logo {
+      width: 48px;
+      height: 48px;
+      background: #c8ff00;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-family: 'Anton', sans-serif;
+      font-size: 26px;
+      box-shadow: 0 0 20px rgba(200, 255, 0, 0.4);
+    }
+
+    .brand h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: 28px;
+      letter-spacing: 0.05em;
+      color: #fff;
+    }
+
+    .brand p {
+      font-size: 11px;
+      color: #a1a1aa;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200, 255, 0, 0.1);
+      border: 1px solid rgba(200, 255, 0, 0.3);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #c8ff00;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c8ff00;
+      box-shadow: 0 0 8px #c8ff00;
+      animation: blink 1.2s infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      flex: 1;
+    }
+
+    @media (max-width: 992px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+
+    .viewport-card {
+      background: #0f1115;
+      border: 1px solid #1f242d;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    }
+
+    .viewport-screen {
+      position: relative;
+      height: 480px;
+      background: #000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gameplay-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: transform 0.5s ease;
+    }
+
+    .viewport-card:hover .gameplay-img {
+      transform: scale(1.02);
+    }
+
+    .hud-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      pointer-events: none;
+    }
+
+    .hud-top {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .hud-box {
+      background: rgba(10, 12, 16, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(200, 255, 0, 0.25);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #c8ff00;
+    }
+
+    .reticle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(200, 255, 0, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .reticle::before, .reticle::after {
+      content: '';
+      position: absolute;
+      background: #c8ff00;
+    }
+    .reticle::before { top: 50%; left: -6px; width: 56px; height: 1px; transform: translateY(-50%); }
+    .reticle::after { left: 50%; top: -6px; height: 56px; width: 1px; transform: translateX(-50%); }
+
+    .crosshair-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 4px;
+      height: 4px;
+      background: #c8ff00;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #c8ff00;
+    }
+
+    .hud-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .health-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(10, 12, 16, 0.8);
+      border: 1px solid #1f242d;
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+    .health-val {
+      font-family: 'Anton', sans-serif;
+      font-size: 28px;
+      color: #22c55e;
+    }
+    .ammo-val {
+      font-family: 'Anton', sans-serif;
+      font-size: 28px;
+      color: #c8ff00;
+    }
+
+    .viewport-controls {
+      padding: 18px 24px;
+      background: #0d0f14;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #1f242d;
+    }
+
+    .action-btn {
+      background: #c8ff00;
+      color: #000;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      padding: 12px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 20px rgba(200, 255, 0, 0.3);
+      pointer-events: auto;
+    }
+    .action-btn:hover {
+      background: #d8ff33;
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(200, 255, 0, 0.5);
+    }
+    .action-btn:active {
+      transform: translateY(0);
+    }
+
+    .side-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .panel-card {
+      background: #0f1115;
+      border: 1px solid #1f242d;
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .panel-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #c8ff00;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .weapon-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: #14171f;
+      border: 1px solid #202633;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .weapon-item:hover, .weapon-item.active {
+      background: rgba(200, 255, 0, 0.1);
+      border-color: rgba(200, 255, 0, 0.5);
+    }
+    .weapon-name {
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .weapon-type {
+      font-size: 10px;
+      color: #a1a1aa;
+    }
+
+    .radar-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 1px solid rgba(200, 255, 0, 0.4);
+      margin: 10px auto;
+      position: relative;
+      background: radial-gradient(circle, rgba(200, 255, 0, 0.05) 0%, rgba(0,0,0,0.6) 70%);
+      overflow: hidden;
+    }
+    .radar-line {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 50%;
+      height: 50%;
+      transform-origin: 0% 100%;
+      background: linear-gradient(45deg, rgba(200, 255, 0, 0.4), transparent 70%);
+      animation: radarScan 2.5s linear infinite;
+    }
+    @keyframes radarScan {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .radar-blip {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #ef4444;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #ef4444;
+      top: 35px;
+      left: 45px;
+    }
+    .radar-blip2 {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #22c55e;
+      bottom: 40px;
+      right: 35px;
+    }
+
+    .server-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      padding: 6px 0;
+      border-bottom: 1px solid #1a1e27;
+      color: #a1a1aa;
+    }
+    .server-item span:last-child {
+      color: #22c55e;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="tactical-grid"></div>
+  <div class="scanline"></div>
+
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">AE</div>
+        <div>
+          <h1>ARM EMPIRES</h1>
+          <p>Multiplayer Tactical Military FPS • Unity 3D Engine</p>
+        </div>
+      </div>
+      <div class="status-pill" style="border-color: #ef4444; color: #ef4444; background: rgba(239, 68, 68, 0.15);">
+        <div class="status-dot" style="background: #ef4444; box-shadow: 0 0 8px #ef4444;"></div>
+        <span>JOGO EM CONSTRUÇÃO • PREVISÃO 10/12/2027</span>
+      </div>
+    </header>
+
+    <!-- Construction Forecast Alert Banner -->
+    <div style="background: linear-gradient(90deg, rgba(239, 68, 68, 0.2), rgba(245, 158, 11, 0.2), rgba(239, 68, 68, 0.2)); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 12px; padding: 14px 20px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; box-shadow: 0 0 30px rgba(239, 68, 68, 0.15);">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span style="font-size: 24px;">🚧</span>
+        <div>
+          <h2 style="font-size: 15px; font-weight: 800; color: #fca5a5; letter-spacing: 0.05em; text-transform: uppercase;">Jogo em Construção</h2>
+          <p style="font-size: 12px; color: #e4e4e7; margin-top: 2px;">Previsão oficial de lançamento para <strong>10/12/2027</strong>. O projeto Unity 3D multiplayer está em desenvolvimento ativo.</p>
+        </div>
+      </div>
+      <div style="background: #ef4444; color: #fff; font-weight: 900; font-size: 11px; padding: 6px 14px; border-radius: 6px; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap;">
+        LANÇAMENTO: 10/12/2027
+      </div>
+    </div>
+
+    <div class="main-grid">
+      <!-- Main Tactical Viewport -->
+      <div class="viewport-card">
+        <div class="viewport-screen">
+          <img src="./assets/arm-empires-gameplay.png" alt="Arm Empires Gameplay" class="gameplay-img" id="gameplay-img">
+        </div>
+
+        <!-- Video de Apresentação -->
+        <div style="margin-top: 16px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(239,68,68,0.3); box-shadow: 0 0 30px rgba(239,68,68,0.1);">
+          <div style="background: rgba(239,68,68,0.1); padding: 10px 16px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(239,68,68,0.2);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#ef4444"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span style="font-size: 11px; font-weight: 800; color: #fca5a5; letter-spacing: 0.1em; text-transform: uppercase;">Vídeo de Apresentação — Em Desenvolvimento</span>
+          </div>
+          <div style="position: relative; width: 100%; aspect-ratio: 9/16; max-height: 420px; background: #000;">
+            <iframe
+              src="https://www.youtube.com/embed/W1IxT8a_a0Y?autoplay=0&rel=0&modestbranding=1"
+              title="Arm Empires — Apresentação"
+              style="position: absolute; inset: 0; width: 100%; height: 100%; border: none;"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tactical Side Panel -->
+      <div class="side-panel">
+        <div class="panel-card">
+          <div class="panel-title">Radar Tático MFPS</div>
+          <div class="radar-circle">
+            <div class="radar-line"></div>
+            <div class="radar-blip"></div>
+            <div class="radar-blip2"></div>
+          </div>
+          <p style="text-align: center; font-size: 11px; color: #a1a1aa; margin-top: 6px;">
+            Varredura ativa • 2 Operadores no setor
+          </p>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-title">Arsenal Selecionável</div>
+          <div class="weapon-item active" onclick="selectWeapon('M4A1 TACTICAL', '30 / 120', this)">
+            <div>
+              <div class="weapon-name">M4A1 CQB</div>
+              <div class="weapon-type">Rifle de Assalto Automático</div>
+            </div>
+            <span style="color: #c8ff00; font-size: 11px; font-weight: bold;">EQUIPADO</span>
+          </div>
+
+          <div class="weapon-item" onclick="selectWeapon('AK-47 CUSTOM', '30 / 90', this)">
+            <div>
+              <div class="weapon-name">AK-47 Custom</div>
+              <div class="weapon-type">Alto Dano Balístico 7.62mm</div>
+            </div>
+            <span style="color: #a1a1aa; font-size: 11px;">SELECIONAR</span>
+          </div>
+
+          <div class="weapon-item" onclick="selectWeapon('AWP COLD SHOT', '10 / 30', this)">
+            <div>
+              <div class="weapon-name">AWP Sniper Rifle</div>
+              <div class="weapon-type">Precisão de Longo Alcance</div>
+            </div>
+            <span style="color: #a1a1aa; font-size: 11px;">SELECIONAR</span>
+          </div>
+
+          <div class="weapon-item" onclick="selectWeapon('DESERT EAGLE', '7 / 35', this)">
+            <div>
+              <div class="weapon-name">Desert Eagle .50</div>
+              <div class="weapon-type">Pistola Pesada Secundária</div>
+            </div>
+            <span style="color: #a1a1aa; font-size: 11px;">SELECIONAR</span>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-title">Pipeline de Execução</div>
+          <div class="server-item">
+            <span>Engine:</span>
+            <span style="color: #fff;">Unity 3D (C#)</span>
+          </div>
+          <div class="server-item">
+            <span>Core Framework:</span>
+            <span style="color: #fff;">MFPS 2.0 Multiplayer</span>
+          </div>
+          <div class="server-item">
+            <span>Rede Multiplayer:</span>
+            <span>Photon Cloud (SA)</span>
+          </div>
+          <div class="server-item">
+            <span>Status no Portal:</span>
+            <span style="color: #c8ff00;">Fila de Build WebGL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentWeapon = 'M4A1 TACTICAL';
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playGunshot() {
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(140, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.2);
+      } catch(e) {}
+    }
+
+    function fireWeapon() {
+      playGunshot();
+      const img = document.getElementById('gameplay-img');
+      img.style.transform = 'scale(1.04) translateY(-3px)';
+      img.style.filter = 'brightness(1.4)';
+      document.getElementById('gun-status').textContent = 'FOGO CONFIRMADO!';
+      document.getElementById('gun-status').style.color = '#c8ff00';
+      
+      setTimeout(() => {
+        img.style.transform = 'scale(1)';
+        img.style.filter = 'brightness(1)';
+        document.getElementById('gun-status').textContent = 'Arma Pronta';
+        document.getElementById('gun-status').style.color = '#fff';
+      }, 150);
+    }
+
+    function selectWeapon(name, ammo, element) {
+      initAudio();
+      document.querySelectorAll('.weapon-item').forEach(el => {
+        el.classList.remove('active');
+        el.querySelector('span:last-child').textContent = 'SELECIONAR';
+        el.querySelector('span:last-child').style.color = '#a1a1aa';
+      });
+      element.classList.add('active');
+      element.querySelector('span:last-child').textContent = 'EQUIPADO';
+      element.querySelector('span:last-child').style.color = '#c8ff00';
+
+      document.getElementById('weapon-display').textContent = name;
+      document.getElementById('ammo-count').textContent = ammo;
+      
+      // Beep sound
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.08);
+      } catch(e) {}
+    }
+  </script>
+</body>
+</html>

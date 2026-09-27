@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Preview Oficial dos Novos Templates de E-mail // Kito Arcade</title>
+  <style>
+    body {
+      background-color: #050608;
+      color: #e5e7eb;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 30px 20px;
+    }
+    .preview-header-bar {
+      max-width: 1240px;
+      margin: 0 auto 30px;
+      padding: 20px 24px;
+      background: #0d0f15;
+      border: 1px solid #1f2536;
+      border-radius: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .preview-brand {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+    .preview-brand span { color: #00FF66; }
+    .preview-tag {
+      background: rgba(0, 255, 102, 0.1);
+      border: 1px solid rgba(0, 255, 102, 0.3);
+      color: #00FF66;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    .grid-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 30px;
+      align-items: start;
+    }
+    .preview-column {
+      background: #0a0b10;
+      border: 1px solid #161a26;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    .column-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .column-title span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #00FF66;
+      box-shadow: 0 0 8px #00FF66;
+    }
+    iframe {
+      width: 100%;
+      height: 950px;
+      border: none;
+      border-radius: 12px;
+      background: #07080a;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-header-bar">
+    <div>
+      <div class="preview-brand">KITO<span>ARCADE</span> // SISTEMA DE E-MAILS</div>
+      <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">Comparação &amp; Renderização Fiel dos Novos Templates Oficiais</div>
+    </div>
+    <div class="preview-tag">ESTÉTICA ULTRA-MODERNA // ALTA CONVERSÃO</div>
+  </div>
+
+  <div class="grid-container">
+    <!-- Coluna 1: Confirmação de Agendamento -->
+    <div class="preview-column">
+      <div class="column-title">
+        <span class="dot"></span>
+        Template 1: Confirmação de Agendamento + Google Calendar + WhatsApp
+      </div>
+      <iframe id="frameBooking"></iframe>
+    </div>
+
+    <!-- Coluna 2: Código OTP de Verificação -->
+    <div class="preview-column">
+      <div class="column-title">
+        <span class="dot" style="background: #06B6D4; box-shadow: 0 0 8px #06B6D4;"></span>
+        Template 2: Código de Segurança OTP de 6 Dígitos
+      </div>
+      <iframe id="frameOtp"></iframe>
+    </div>
+  </div>
+
+  <script type="module">
+    import { generateKitoBookingEmail, generateKitoVerificationEmail } from './src/lib/kitoEmailTemplates.js';
+
+    const bookingHtml = generateKitoBookingEmail({
+      clientName: 'Carlos Salvador',
+      serviceName: 'Criação de Sites e Apps • Sob Medida',
+      professionalName: 'Cristopher Vieira',
+      date: '2026-09-28',
+      time: '14:30',
+      phone: '(11) 98888-7777',
+      email: 'carlos.salvado1400@gmail.com',
+      notes: 'Gostaria de integrar a esteira com meu SaaS de gestão e personalizar os relatórios em tempo real.'
+    });
+
+    const otpHtml = generateKitoVerificationEmail('519906', 15);
+
+    document.getElementById('frameBooking').srcdoc = bookingHtml;
+    document.getElementById('frameOtp').srcdoc = otpHtml;
+  </script>
+</body>
+</html>

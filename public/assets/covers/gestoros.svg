@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="bgo" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e3a8a"/></linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bgo)"/>
+  <!-- Wrench and Gear -->
+  <circle cx="200" cy="115" r="45" fill="none" stroke="#38bdf8" stroke-width="8" stroke-dasharray="16 8"/>
+  <circle cx="200" cy="115" r="22" fill="#0284c7"/>
+  <path d="M150 170 L250 70" stroke="#f59e0b" stroke-width="12" stroke-linecap="round"/>
+  <text x="200" y="235" font-family="sans-serif" font-weight="900" font-size="24" fill="#bae6fd" text-anchor="middle" letter-spacing="2">GESTOR OS</text>
+</svg>

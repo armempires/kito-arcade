@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#f472b6"/>
+  <rect x="110" y="65" width="80" height="80" rx="16" fill="#ffffff"/>
+  <circle cx="150" cy="105" r="24" fill="#f59e0b"/>
+  <rect x="210" y="65" width="80" height="80" rx="16" fill="#ffffff"/>
+  <circle cx="250" cy="105" r="24" fill="#f59e0b"/>
+  <path d="M150 145 L150 170 L250 170 L250 145" stroke="#fef08a" stroke-width="6" fill="none" stroke-linejoin="round"/>
+  <text x="200" y="240" font-family="sans-serif" font-weight="900" font-size="24" fill="#ffffff" text-anchor="middle" letter-spacing="2">PET CONNECT</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#0284c7"/>
+  <circle cx="160" cy="80" r="22" fill="#ef4444"/>
+  <circle cx="210" cy="80" r="22" fill="#10b981"/>
+  <circle cx="260" cy="80" r="22" fill="#f59e0b"/>
+  <circle cx="185" cy="120" r="22" fill="#8b5cf6"/>
+  <circle cx="235" cy="120" r="22" fill="#ec4899"/>
+  <path d="M200 200 L200 150" stroke="#fde047" stroke-width="8" stroke-linecap="round"/>
+  <text x="200" y="250" font-family="sans-serif" font-weight="900" font-size="24" fill="#ffffff" text-anchor="middle" letter-spacing="2">BUBBLE SHOOTER</text>
+</svg>

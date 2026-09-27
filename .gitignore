@@ -1,0 +1,32 @@
+# Dependências
+node_modules
+.pnp
+.pnp.js
+
+# Produção / Builds
+dist
+build
+.vercel
+
+# Variáveis de ambiente sensíveis
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Códigos-fonte locais brutos pesados (54GB de Unity, Android Studio, etc.)
+# O Kito Arcade já consome as versões compiladas em public/hosted/
+projetos/
+Agenda Kito/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db

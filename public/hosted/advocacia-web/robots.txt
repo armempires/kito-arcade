@@ -1,0 +1,32 @@
+# Robots.txt for Valença & Associados Advocacia Estratégica
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+# Explicit Rules for Modern AI Search Engines & Retrieval Crawlers (GEO / LLMO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://valencaadvogados.com.br/sitemap.xml

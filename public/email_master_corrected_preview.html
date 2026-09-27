@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Revisão de Templates Corrigidos // Kito Arcade</title>
+  <style>
+    body {
+      background-color: #050608;
+      color: #e5e7eb;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 30px 24px;
+    }
+    .header-bar {
+      max-width: 1440px;
+      margin: 0 auto 30px;
+      padding: 22px 28px;
+      background: #0d0f15;
+      border: 1px solid #1f2536;
+      border-radius: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header-title {
+      font-size: 20px;
+      font-weight: 900;
+      color: #ffffff;
+    }
+    .header-title span { color: #C8FF00; }
+    .badge {
+      background: #C8FF00;
+      color: #000000;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 6px 14px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .grid {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    .card {
+      background: #0a0b10;
+      border: 1px solid #1a1e2b;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    .card-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #d1d5db;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-title span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #C8FF00;
+      box-shadow: 0 0 10px #C8FF00;
+    }
+    iframe {
+      width: 100%;
+      height: 780px;
+      border: none;
+      border-radius: 12px;
+      background: #07080a;
+    }
+    .mobile-mockup {
+      max-width: 380px;
+      margin: 0 auto;
+      border: 3px solid #222;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    }
+  </style>
+</head>
+<body>
+  <div class="header-bar">
+    <div>
+      <div class="header-title">KITO<span>ARCADE</span> // TEMPLATES CORRIGIDOS (PROPOSTA PARA APROVAÇÃO)</div>
+      <div style="font-size: 12px; color: #888; margin-top: 4px;">
+        1. Logo real e cores oficiais (#C8FF00) • 2. Código OTP compacto e 100% em 1 única linha (sem quebra em 2 linhas)
+      </div>
+    </div>
+    <div class="badge">LAYOUT EXATO SOLICITADO</div>
+  </div>
+
+  <div class="grid">
+    <!-- Coluna 1: Código OTP Corrigido (Visão Mobile 375px Real) -->
+    <div class="card">
+      <div class="card-title">
+        <span class="dot"></span>
+        TEMPLATE 1: CÓDIGO OTP (COMPROVAÇÃO EM 1 LINHA NO MOBILE)
+      </div>
+      <div class="mobile-mockup">
+        <iframe src="/email_otp_corrected.html" style="height: 720px;"></iframe>
+      </div>
+    </div>
+
+    <!-- Coluna 2: Confirmação de Agendamento Corrigida -->
+    <div class="card">
+      <div class="card-title">
+        <span class="dot"></span>
+        TEMPLATE 2: CONFIRMAÇÃO DE AGENDAMENTO (IDENTIDADE #C8FF00)
+      </div>
+      <iframe src="/email_booking_corrected.html" style="height: 720px;"></iframe>
+    </div>
+  </div>
+</body>
+</html>
